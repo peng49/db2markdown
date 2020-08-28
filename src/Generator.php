@@ -3,7 +3,7 @@
 namespace DB2Markdown;
 
 
-class DocGenerator
+class Generator
 {
     private $pdo;
 

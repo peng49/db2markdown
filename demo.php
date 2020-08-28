@@ -3,7 +3,7 @@ require_once 'src/Generator.php';
 
 try{
 
-    $generator = new DB2Markdown\DocGenerator('mysql:dbname=database;host=localhost;port=3306','username','password');
+    $generator = new DB2Markdown\Generator('mysql:dbname=database;host=localhost;port=3306','username','password');
 
     $generator->output("","*");
 }catch (PDOException $e){

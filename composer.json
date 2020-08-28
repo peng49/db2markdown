@@ -6,5 +6,16 @@
     "php",
     "markdown"
   ],
-  "license": "MIT"
+  "homepage": "https://github.com/peng49/db2markdown",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "peng49"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "DB2Markdown\\": "src"
+    }
+  }
 }

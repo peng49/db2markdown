@@ -11,7 +11,7 @@ class Mysql implements Connection
 {
     private $pdo;
 
-    private $tableFormat = "| Field | Type | Default | Comment  | Null | Key | ".PHP_EOL.
+    private $header = "| Field | Type | Default | Comment  | Null | Key | ".PHP_EOL.
     "|---|---|---|---|---|---|".PHP_EOL;
 
     public function __construct($dsn, $username, $password)
@@ -43,7 +43,7 @@ class Mysql implements Connection
 
                 $fields = $this->getTableFields($table);
 
-                $tableStr .= $this->tableFormat;
+                $tableStr .= $this->header;
                 foreach ($fields as $field) {
                     $format   = "|%s|%s|%s|%s|%s|%s|".PHP_EOL;
                     $row      = sprintf(

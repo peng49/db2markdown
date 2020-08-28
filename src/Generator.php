@@ -1,5 +1,8 @@
 <?php
 
+namespace DB2Markdown;
+
+
 class DocGenerator
 {
     private $pdo;

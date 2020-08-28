@@ -1,8 +1,9 @@
 {
   "name": "peng49/db2markdown",
   "type": "library",
-  "description": "",
+  "description": "php auto generate markdown for database",
   "keywords": [
+    "php",
     "markdown"
   ],
   "license": "MIT"

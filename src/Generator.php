@@ -14,7 +14,7 @@ class Generator
 
     public function __construct($dsn, $username, $password)
     {
-        $this->pdo = new PDO($dsn, $username, $password);
+        $this->pdo = new \PDO($dsn, $username, $password);
     }
 
     /**
@@ -56,7 +56,7 @@ class Generator
                     $tableStr .= $row;
                 }
                 $preStr .= $tableStr;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 echo $e->getMessage();
             }
         }
@@ -68,7 +68,7 @@ class Generator
     {
         $sql = "show tables";
 
-        $statement = $this->pdo->query($sql, PDO::FETCH_ASSOC);
+        $statement = $this->pdo->query($sql, \PDO::FETCH_ASSOC);
 
         $items = $statement->fetchAll();
 
@@ -88,10 +88,10 @@ class Generator
 
         echo $sql."\r\n";
 
-        $statement = $this->pdo->query($sql, PDO::FETCH_ASSOC);
+        $statement = $this->pdo->query($sql, \PDO::FETCH_ASSOC);
 
         if (!$statement) {
-            throw new Exception('Exception G');
+            throw new \Exception('Exception G');
         }
 
         return $statement->fetchAll();

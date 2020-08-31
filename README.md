@@ -9,10 +9,18 @@
 
 ```php
 <?php
-    require_once "vendor/autoload.php";
-    
-    $generate = new DB2Markdown\Generator('mysql:dbname=database;host=localhost;port=3306','username','password');
-    
-    $generate->output('filename', '*');
+require_once "vendor/autoload.php";
+
+/* @var $generator \DB2Markdown\Generator\Mysql */
+$generator = \DB2Markdown\Factory::getGenerator('mysql');
+
+//mysql
+$generator->setHost('localhost')
+    ->setPort(3306)
+    ->setDatabase('database')
+    ->setUsername('username')
+    ->setPassword('password')
+    ->output("filename", "*");
+
 
 ```

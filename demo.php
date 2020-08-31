@@ -1,11 +1,13 @@
 <?php
-require_once 'src/Generator.php';
+require_once "vendor/autoload.php";
 
-try{
+/* @var $generator \DB2Markdown\Generator\Mysql */
+$generator = \DB2Markdown\Factory::getGenerator('mysql');
 
-    $generator = new DB2Markdown\Generator('mysql:dbname=database;host=localhost;port=3306','username','password');
-
-    $generator->output("","*");
-}catch (PDOException $e){
-    echo $e->getMessage();
-}
+// $generator
+$generator->setHost('localhost')
+    ->setPort(3306)
+    ->setDatabase('database')
+    ->setUsername('username')
+    ->setPassword('password')
+    ->output("filename", "*");

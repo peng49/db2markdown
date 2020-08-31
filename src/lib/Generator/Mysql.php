@@ -1,22 +1,62 @@
 <?php
 
-namespace DB2Markdown\Db;
+namespace DB2Markdown\Generator;
 
-use DB2Markdown\Connection;
+use DB2Markdown\Generator;
 
 /**
  * Class Mysql
  */
-class Mysql implements Connection
+class Mysql implements Generator
 {
+    private $host;
+
+    private $port;
+
+    private $database;
+
+    private $username;
+
+    private $password;
+
     private $pdo;
 
     private $header = "| Field | Type | Default | Comment  | Null | Key | ".PHP_EOL.
     "|---|---|---|---|---|---|".PHP_EOL;
 
-    public function __construct($dsn, $username, $password)
+    public function setHost($host)
     {
-        $this->pdo = new \PDO($dsn, $username, $password);
+        $this->host = $host;
+
+        return $this;
+    }
+
+    public function setPort($port)
+    {
+        $this->port = $port;
+
+        return $this;
+    }
+
+    public function setDatabase($database)
+    {
+        $this->database = $database;
+
+        return $this;
+    }
+
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
     }
 
     /**
@@ -30,6 +70,8 @@ class Mysql implements Connection
      */
     public function output($filename, $importTables = "*")
     {
+        $this->init();
+
         $tables = $this->getTables();
         $preStr = "";
         foreach ($tables as $table) {
@@ -64,6 +106,11 @@ class Mysql implements Connection
         }
 
         file_put_contents("./{$filename}.md", $preStr);
+    }
+
+    private function init()
+    {
+        $this->pdo = new \PDO("mysql:dbname={$this->database};host={$this->host};port={$this->port}",$this->username,$this->password);
     }
 
     /**

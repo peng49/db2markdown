@@ -9,7 +9,7 @@
 namespace DB2Markdown;
 
 
-interface Connection
+interface Generator
 {
     public function output($filename, $tables = '*');
 }

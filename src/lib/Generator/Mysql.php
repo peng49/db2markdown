@@ -147,7 +147,12 @@ class Mysql implements Generator
      */
     protected function getTableComment($table)
     {
-        return $table.' desc'.PHP_EOL.PHP_EOL;
+        $stat = $this->pdo->query("show create table {$table};");
+        $rows = $stat->fetchAll(\PDO::FETCH_ASSOC);
+        
+        preg_match("/\).*COMMENT='(.*?)'/",$rows[0]['Create Table'],$match);
+
+        return ($match[1] ?? $table) . PHP_EOL . PHP_EOL;
     }
 
     /**

@@ -8,7 +8,7 @@ foreach (array(__DIR__ . '/../../../../../vendor/autoload.php', __DIR__ . '/../.
 }
 
 function read($tips = '', $default = '') {
-    echo "{$tips}";
+    echo "{$tips} ";
     $fp = fopen('php://stdin', 'r');
     $input = fgets($fp, 255);
     fclose($fp);
@@ -16,8 +16,9 @@ function read($tips = '', $default = '') {
 }
 
 $host = read('please enter the host(localhost):', 'localhost');
-$port = read('please enter the post(3306):', '3306');
+$port = read('please enter the port(3306):', '3306');
 $username = read('please enter username(root):', 'root');
+
 do {
     $password = read('please enter password:');
 } while (empty($password));

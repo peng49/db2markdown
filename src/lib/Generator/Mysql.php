@@ -106,6 +106,8 @@ class Mysql implements Generator
         }
 
         file_put_contents("./{$filename}.md", $preStr);
+
+        echo realpath("./{$filename}.md"), " is export success";
     }
 
     private function init()
@@ -149,7 +151,7 @@ class Mysql implements Generator
     {
         $stat = $this->pdo->query("show create table {$table};");
         $rows = $stat->fetchAll(\PDO::FETCH_ASSOC);
-        
+
         preg_match("/\).*COMMENT='(.*?)'/",$rows[0]['Create Table'],$match);
 
         return ($match[1] ?? $table) . PHP_EOL . PHP_EOL;

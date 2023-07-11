@@ -1,0 +1,47 @@
+#!/usr/bin/env php
+<?php
+foreach (array(__DIR__ . '/../../../../../vendor/autoload.php', __DIR__ . '/../../vendor/autoload.php') as $file) {
+    if (file_exists($file)) {
+        require_once $file;
+        break;
+    }
+}
+
+function read($tips = '', $default = '') {
+    echo "{$tips}";
+    $fp = fopen('php://stdin', 'r');
+    $input = fgets($fp, 255);
+    fclose($fp);
+    return trim($input) !== '' ? trim($input) : $default;
+}
+
+$host = read('please enter the host(localhost):', 'localhost');
+$port = read('please enter the post(3306):', '3306');
+$username = read('please enter username(root):', 'root');
+do {
+    $password = read('please enter password:');
+} while (empty($password));
+
+do {
+    $database = read('please enter database:');
+} while (empty($database));
+
+$tables = read('please enter tables(default is *,match all table):', '*');
+
+/* @var $generator DB2Markdown\Generator\Mysql */
+try {
+    $generator = \DB2Markdown\Factory::getGenerator('mysql');
+    // $generator
+    $generator->setHost($host)
+        ->setPort($port)
+        ->setDatabase($database)
+        ->setUsername($username)
+        ->setPassword($password)
+        ->output("db2markdown" . date('YmdHis'), $tables);
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
+
+
+
+

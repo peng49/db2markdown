@@ -1,6 +1,7 @@
 {
   "name": "peng49/db2markdown",
   "type": "library",
+  "version": "0.1.0",
   "description": "php auto generate markdown for database",
   "keywords": [
     "php",
@@ -16,6 +17,9 @@
   "require": {
     "php": ">=5.1.0"
   },
+  "bin": [
+    "src/bin/db2markdown"
+  ],
   "autoload": {
     "psr-4": {
       "DB2Markdown\\": "src/lib"

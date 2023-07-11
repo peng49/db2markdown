@@ -154,7 +154,7 @@ class Mysql implements Generator
 
         preg_match("/\).*COMMENT='(.*?)'/",$rows[0]['Create Table'],$match);
 
-        return ($match[1] ?? $table) . PHP_EOL . PHP_EOL;
+        return (isset($match[1]) ? $match[1] : $table) . PHP_EOL . PHP_EOL;
     }
 
     /**

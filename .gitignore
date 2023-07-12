@@ -1,3 +1,5 @@
 .idea
 vendor
+db2markdown*.md
 composer.lock
+.phpunit.result.cache

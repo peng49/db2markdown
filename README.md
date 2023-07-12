@@ -10,25 +10,50 @@
 输入数据库的 地址(host), 端口(port) 用户名,密码,要导出的表,默认是*,生成所有表的文档,指定多个表明用逗号隔开,如: table1,table2
 
 ```shell
-$ php vendor/bin/db2markdown
-please enter the host(localhost): localhost
-please enter the port(3306): 3306
-please enter username(root): root
-please enter password: Admin@123
+$ php src/bin/db2markdown
+please enter the db(1 mysql,2 postgresql):
+please enter the host(localhost):
+please enter the port(3306): 3310
+please enter username(root):
+please enter password: password
 please enter database: acg
-please enter tables(default is *,match all table): 
-show full columns from admin_menu
+please enter tables(default is *,match all table):
 
-show full columns from admin_operation_log
+admin_menu successful
 
-show full columns from admin_permissions
+admin_operation_log successful
 
-show full columns from admin_role_menu
+admin_permissions successful
 
-...
+....
 
-E:\develop\library\db2markdown20230711031625.md is export success
+E:\develop\db2markdown\db2markdown20230712091813.md is export success
 ```
+
+导出PostgreSQL结构
+```shell
+$ php src/bin/db2markdown
+please enter the db(1 mysql,2 postgresql): 3
+please enter the db(1 mysql,2 postgresql): 2
+please enter the host(localhost):
+please enter the port(5432): 5432
+please enter username(root): odoo
+please enter password: password
+please enter database: gocron
+please enter table schema(public):
+please enter tables(default is *,match all table):
+
+task successful
+
+task_log successful
+
+host successful
+
+......
+
+E:\develop\db2markdown\db2markdown20230712092030.md is export success
+```
+
 
 ##### 代码中使用
 

@@ -1,5 +1,8 @@
 #!/usr/bin/env php
 <?php
+
+use DB2Markdown\Factory;
+
 foreach (array(__DIR__ . '/../../../../../vendor/autoload.php', __DIR__ . '/../../vendor/autoload.php') as $file) {
     if (file_exists($file)) {
         require_once $file;
@@ -15,8 +18,18 @@ function read($tips = '', $default = '') {
     return trim($input) !== '' ? trim($input) : $default;
 }
 
+$drivers = [
+    1 => 'mysql',
+    2 => 'postgresql'
+];
+
+do {
+    $db = read('please enter the db(1 mysql,2 postgresql):', 1);
+} while (!in_array($db, array_keys($drivers)));
+$defaultPort = $db == 1 ? 3306 : 5432;
+
 $host = read('please enter the host(localhost):', 'localhost');
-$port = read('please enter the port(3306):', '3306');
+$port = read("please enter the port({$defaultPort}):", $defaultPort);
 $username = read('please enter username(root):', 'root');
 
 do {
@@ -27,18 +40,26 @@ do {
     $database = read('please enter database:');
 } while (empty($database));
 
+$schema = '';
+if ($db == 2) {
+    $schema = read('please enter table schema(public):', 'public');
+}
+
 $tables = read('please enter tables(default is *,match all table):', '*');
 
 /* @var $generator DB2Markdown\Generator\Mysql */
 try {
-    $generator = \DB2Markdown\Factory::getGenerator('mysql');
+    $generator = Factory::getGenerator($drivers[$db]);
     // $generator
     $generator->setHost($host)
         ->setPort($port)
         ->setDatabase($database)
         ->setUsername($username)
-        ->setPassword($password)
-        ->output("db2markdown" . date('YmdHis'), $tables);
+        ->setPassword($password);
+    if ($db == 2) {
+        $generator->setTableSchema($schema);
+    }
+    $generator->output("db2markdown" . date('YmdHis'), $tables);
 } catch (Exception $e) {
     echo $e->getMessage();
 }

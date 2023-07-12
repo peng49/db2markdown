@@ -8,6 +8,9 @@
 
 namespace DB2Markdown;
 
+use DB2Markdown\Generator\Base;
+use Exception;
+
 /**
  * Class Factory
  * @package DB2Markdown
@@ -21,19 +24,20 @@ class Factory
      *
      * @param string $type
      *
-     * @return string
-     * @throws \Exception
+     * @return object
+     * @throws Exception
      * @date    2020/8/31 13:25
      */
     public static function getGenerator($type = 'mysql')
     {
         $className = self::getClassName($type);
 
-        $generator = (new \ReflectionClass($className))->newInstanceWithoutConstructor();
-
-        return $generator;
+        return (new \ReflectionClass($className))->newInstanceWithoutConstructor();
     }
 
+    /**
+     * @throws Exception
+     */
     protected static function getClassName($type)
     {
         if (empty(self::$map)) {
@@ -41,7 +45,7 @@ class Factory
         }
 
         if (!isset(self::$map[$type])) {
-            throw new \Exception("未定义的类型:{$type}");
+            throw new Exception("未定义的类型:{$type}");
         }
 
         return self::$map[$type];

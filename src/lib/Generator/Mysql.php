@@ -11,7 +11,7 @@ class Mysql extends Base {
 
     protected function connection() {
         $dsn = "mysql:dbname={$this->database};host={$this->host};port={$this->port}";
-        echo $dsn;
+//        echo $dsn;
         $this->pdo = new PDO($dsn, $this->username, $this->password);
     }
 

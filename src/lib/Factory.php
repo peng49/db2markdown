@@ -66,5 +66,6 @@ class Factory
 
             self::$map[strtolower($name)] = $className;
         }
+        closedir($resource);
     }
 }
